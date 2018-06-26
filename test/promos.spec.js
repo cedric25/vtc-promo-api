@@ -3,11 +3,43 @@
 
 const { assert } = require('chai')
 const {
+  checkAgeRestriction,
   checkDateRestriction,
   checkRestriction,
   checkAgainstOnePromo,
   checkAgainstAllPromo,
 } = require('../src/utils')
+
+describe('checkAgeRestriction()', () => {
+
+  describe('When having an age equality restriction met', () => {
+    it('Should answer true', () => {
+      const ageRestriction = {
+        eq: 40
+      }
+      const result = checkAgeRestriction(40, ageRestriction)
+      assert.isTrue(result)
+    })
+  })
+  describe('When having an age equality restriction NOT met', () => {
+    it('Should answer true', () => {
+      const ageRestriction = {
+        eq: 40
+      }
+      const result = checkAgeRestriction(39, ageRestriction)
+      assert.isFalse(result)
+    })
+  })
+
+  describe('When having just a greater than age restriction', () => {
+    // TODO
+  })
+
+  describe('When having just a less than age restriction', () => {
+    // TODO
+  })
+
+})
 
 describe('checkDateRestriction()', () => {
 
@@ -44,6 +76,14 @@ describe('checkDateRestriction()', () => {
         assert.isFalse(result)
       })
     })
+  })
+
+  describe('Having just an after date restriction', () => {
+    // TODO
+  })
+
+  describe('Having just a before date restriction', () => {
+    // TODO
   })
 })
 
@@ -85,7 +125,7 @@ describe('checkRestriction()', () => {
 
 describe('checkAgainstOnePromo()', () => {
 
-  describe('When having...', () => {
+  describe('When having an age equality restriction met', () => {
     it('Should answer true', () => {
       const promoBody = {
         arguments: {

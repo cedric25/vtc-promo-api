@@ -26,10 +26,7 @@ function checkRestriction (promoBody, restrictionKey, restriction) {
   switch (restrictionKey) {
 
     case '@age':
-      if (restriction.eq) {
-        return promoBody.arguments.age === restriction.eq
-      }
-      break
+      return checkAgeRestriction(promoBody.arguments.age, restriction)
 
     case '@date':
       return checkDateRestriction(restriction)
@@ -39,6 +36,21 @@ function checkRestriction (promoBody, restrictionKey, restriction) {
       // return false
       return true
   }
+}
+
+function checkAgeRestriction (requestAge, ageRestriction) {
+  let restrictionOk = true
+  if (ageRestriction.eq) {
+    restrictionOk = restrictionOk && requestAge === ageRestriction.eq
+  } else {
+    if (ageRestriction.lt) {
+      restrictionOk = restrictionOk && requestAge < ageRestriction.lt
+    }
+    if (ageRestriction.gt) {
+      restrictionOk = restrictionOk && requestAge > ageRestriction.gt
+    }
+  }
+  return restrictionOk
 }
 
 function checkDateRestriction (dateRestriction) {
@@ -62,5 +74,6 @@ module.exports = {
   // Exported for test purpose only
   checkAgainstOnePromo,
   checkRestriction,
+  checkAgeRestriction,
   checkDateRestriction,
 }
