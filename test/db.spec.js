@@ -7,7 +7,7 @@ const db = require('../src/db')
 describe('db', () => {
 
   beforeEach(() => {
-    db.resetDb()
+    db.clear()
   })
 
   describe('Without initialising db', () => {

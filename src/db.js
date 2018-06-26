@@ -1,5 +1,7 @@
 const uuid = require('uuid/v4')
 
+// TODO Use a files db instead of this in-memory one
+
 let promocodes = []
 
 function init () {
@@ -36,21 +38,26 @@ function getDb () {
   return promocodes
 }
 
-function resetDb () {
+function clear () {
   promocodes = []
 }
 
+function reset () {
+  promocodes = []
+  init()
+}
+
 function addPromocode (newPromocode) {
-  // istanbul not happy with that, see later
+  // istanbul not happy with this spread syntax, see later
   // const newPromocodeWithId = { ...newPromocode, id: uuid() }
   const newPromocodeWithId = Object.assign({}, newPromocode, { id: uuid() })
-  console.log('newPromocodeWithId', newPromocodeWithId)
   promocodes.push(newPromocodeWithId)
 }
 
 module.exports = {
   init,
   getDb,
-  resetDb,
+  clear,
+  reset,
   addPromocode,
 }
