@@ -1,5 +1,8 @@
 const log = require('./src/logger')
 const app = require('./src/app')
+const db = require('./src/db')
+
+db.init()
 
 const port = process.env.PORT || 3000
 app.listen(port)
