@@ -1,7 +1,7 @@
 const bunyan = require('bunyan')
 
 module.exports = bunyan.createLogger({
-  name: 'my-super-api',
+  name: 'vtc-promo-api',
   streams: [
     {
       level: process.env.LOG_LEVEL || 'info',
