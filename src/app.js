@@ -10,6 +10,10 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('tiny'))
 }
 
+app.get('/', (req, res) => {
+  res.send('Hello, World!')
+})
+
 app.post('/promocode', express.json(), (req, res) => {
   log.debug('Handling request for endpoint: POST /promocode', req.body)
   // TODO Middleware with Joi?
