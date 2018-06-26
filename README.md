@@ -28,6 +28,41 @@ npm run start:debug // yarn start:debug
 npm t // yarn test
 ```
 
+## Data
+
+At the moment, there is only an **in-memory database** which includes one entry:
+```json
+{
+  _id: <uuid()>,
+  name: 'WeatherCode',
+  avantage: { percent: 20 },
+  restrictions: {
+    '@or': [{
+      '@age': {
+        eq: 40
+      }
+    }, {
+      '@age': {
+        lt: 30,
+        gt: 15
+      },
+    }],
+    '@date': {
+      after: '2017-05-02',
+      before: '2018-10-02',
+    },
+    '@meteo': {
+      is: 'clear',
+      temp: {
+        gt: '15', // Celsius here.
+      }
+    }
+  }
+}
+```
+
+A possible next step could be to have a file-based database instead.
+
 ## Deployed to heroku
 
 https://vtc-promo-api.herokuapp.com/
@@ -60,4 +95,4 @@ should answer with:
 
 ## TODO
 
-Look for 'TODO' in the code
+There is multiple 'TODO' in the code...
