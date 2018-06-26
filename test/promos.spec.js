@@ -3,10 +3,49 @@
 
 const { assert } = require('chai')
 const {
+  checkDateRestriction,
   checkRestriction,
   checkAgainstOnePromo,
   checkAgainstAllPromo,
 } = require('../src/utils')
+
+describe('checkDateRestriction()', () => {
+
+  // TODO Fake time...
+
+  describe('Having an after and a before date restriction', () => {
+    describe('When today\'s date is well in-between', () => {
+      it('Should answer true', () => {
+        const dateRestriction = {
+          after: '2017-08-02',
+          before: '2018-08-02',
+        }
+        const result = checkDateRestriction(dateRestriction)
+        assert.isTrue(result)
+      })
+    })
+    describe('When promo has not been reached yet', () => {
+      it('Should answer false', () => {
+        const dateRestriction = {
+          after: '2018-08-01',
+          before: '2018-09-01',
+        }
+        const result = checkDateRestriction(dateRestriction)
+        assert.isFalse(result)
+      })
+    })
+    describe('When promo belongs to the past', () => {
+      it('Should answer false', () => {
+        const dateRestriction = {
+          after: '2017-08-01',
+          before: '2017-10-01',
+        }
+        const result = checkDateRestriction(dateRestriction)
+        assert.isFalse(result)
+      })
+    })
+  })
+})
 
 describe('checkRestriction()', () => {
 

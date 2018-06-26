@@ -24,20 +24,36 @@ function checkAgainstOnePromo (promoBody, promoDb) {
 
 function checkRestriction (promoBody, restrictionKey, restriction) {
   switch (restrictionKey) {
+
     case '@age':
       if (restriction.eq) {
         return promoBody.arguments.age === restriction.eq
       }
       break
-    // case 'numeric':
-    //   return rawValue.trim()
-    // case 'date':
-    //   return formatDateWithoutMoment(rawValue)
+
+    case '@date':
+      return checkDateRestriction(restriction)
+
     default:
       console.warn(`/!\\ Unknown restrictionKey: ${restrictionKey}`)
       // return false
       return true
   }
+}
+
+function checkDateRestriction (dateRestriction) {
+  const today = new Date()
+  const afterDate = dateRestriction.after && new Date(dateRestriction.after)
+  const beforeDate = dateRestriction.before && new Date(dateRestriction.before)
+  if (afterDate && beforeDate) {
+    return today.getTime() >= afterDate && today.getTime() <= beforeDate
+  } else if (afterDate) {
+    return today.getTime() >= afterDate
+  } else if (beforeDate) {
+    return today.getTime() <= beforeDate
+  }
+  console.warn(`/!\\ Neither 'after' nor 'before' restriction?...`)
+  return true
 }
 
 module.exports = {
@@ -46,4 +62,5 @@ module.exports = {
   // Exported for test purpose only
   checkAgainstOnePromo,
   checkRestriction,
+  checkDateRestriction,
 }
