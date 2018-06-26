@@ -44,7 +44,7 @@ POST https://vtc-promo-api.herokuapp.com/booking-promo
     }
   }
 }
-``
+```
 
 should answer with:
 
