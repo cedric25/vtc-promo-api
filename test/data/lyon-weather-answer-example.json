@@ -13,27 +13,27 @@
   ],
   "base": "stations",
   "main": {
-    "temp": 293.89,
+    "temp": 22,
     "pressure": 1020,
-    "humidity": 49,
-    "temp_min": 293.15,
-    "temp_max": 295.15
+    "humidity": 46,
+    "temp_min": 21,
+    "temp_max": 23
   },
   "visibility": 10000,
   "wind": {
-    "speed": 2.1,
-    "deg": 350
+    "speed": 2.6,
+    "deg": 320
   },
   "clouds": {
     "all": 0
   },
-  "dt": 1530003600,
+  "dt": 1530005400,
   "sys": {
     "type": 1,
     "id": 5576,
-    "message": 0.0022,
+    "message": 0.0025,
     "country": "FR",
-    "sunrise": 1529985148,
+    "sunrise": 1529985149,
     "sunset": 1530041677
   },
   "id": 2996944,

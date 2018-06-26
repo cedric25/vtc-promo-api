@@ -98,8 +98,9 @@ function checkMeteoRestriction (currentMeteo, meteoRestriction) {
   }
   let restrictionOk = true
   if (meteoRestriction.is) {
-    restrictionOk = restrictionOk && currentMeteo.main === meteoRestriction.is
+    restrictionOk = restrictionOk && currentMeteo.skyState === meteoRestriction.is
   }
+  // TODO Also check temperature...
   return restrictionOk
 }
 

@@ -10,7 +10,8 @@ describe('buildMeteoAnswer()', () => {
     it('Should extract relevant info', () => {
       const result = buildMeteoAnswer(weatherAnswerExample)
       assert.deepEqual(result, {
-        main: 'clear',
+        skyState: 'clear',
+        temperature: 22,
       })
     })
   })
