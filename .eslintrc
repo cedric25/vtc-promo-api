@@ -4,6 +4,6 @@
     "mocha": true
   },
   "rules": {
-    "comma-dangle": ["warn", "always-multiline"]
+    "comma-dangle": 0
   }
 }
