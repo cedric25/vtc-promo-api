@@ -4,6 +4,9 @@
     "mocha": true
   },
   "rules": {
-    "comma-dangle": 0
+    // Allow trailing commas
+    "comma-dangle": 0,
+    // Allow new line after start of block (function)
+    "padded-blocks": 0
   }
 }
