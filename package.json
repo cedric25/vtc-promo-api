@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "npm run start:dev",
-    "start:dev": "PORT=3001 node server | npx bunyan --time local --output short",
+    "start:dev": "node server | npx bunyan --time local --output short",
     "start:debug": "LOG_LEVEL=debug npm run start:dev",
     "start:prod": "NODE_ENV=production node server",
     "test": "NODE_ENV=test FORCE_COLOR=true mocha | npx bunyan --time local --output short",
