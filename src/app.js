@@ -41,7 +41,7 @@ app.post('/booking-promo', express.json(), async (req, res) => {
       promocode_name: req.body.promocode_name,
       status: 'denied',
       reasons: {
-        meteo: 'isNotClear'
+        todo: '...'
       }
     }
     log.info('Answer:', deniedAnswer)
