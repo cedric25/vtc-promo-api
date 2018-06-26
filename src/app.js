@@ -1,21 +1,27 @@
 const express = require('express')
 const morgan = require('morgan')
 const log = require('./logger')
-const { add } = require('./utils')
+const { checkPromo } = require('./utils')
 
 const app = express()
 
-app.use(morgan('tiny'))
+if (process.env.NODE_ENV !== 'test') {
+  app.use(morgan('tiny'))
+}
 
-app.get('/', (req, res) => {
-  log.debug('Handling request for endpoint: GET /')
-  const result = add(2, 2)
-  res.send(`Hello World, result is ${result}`)
+app.post('/promocode', express.json(), (req, res) => {
+  log.debug('Handling request for endpoint: POST /promocode')
+  res.json({
+    success: true,
+  })
 })
 
-app.post('/', express.json(), (req, res) => {
-  log.debug('Handling request for endpoint: POST /')
-  res.send(`You sent me ${JSON.stringify(req.body)}`)
+app.post('/booking-promo', express.json(), (req, res) => {
+  log.debug('Handling request for endpoint: POST /booking-promo')
+  const result = checkPromo(req.body)
+  res.json({
+    result,
+  })
 })
 
 module.exports = app
