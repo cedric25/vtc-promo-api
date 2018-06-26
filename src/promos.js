@@ -1,3 +1,7 @@
+const get = require('lodash/get')
+const log = require('./logger')
+const { getWeatherInTown } = require('./external/meteo')
+
 /**
  * promoBody example:
    {
@@ -8,21 +12,29 @@
      }
    }
  */
-function checkAgainstAllPromo (promoBody, dbContent) {
+async function checkAgainstAllPromo (promoBody, dbContent) {
+
+  // (Debatable choice to ask meteo here...)
+  const requestTown = get(promoBody.arguments, 'meteo.town')
+  let currentMeteo = null
+  if (requestTown) {
+    currentMeteo = await getWeatherInTown(requestTown)
+  }
+
   const isOnePromoApplicable = dbContent.some(promoDb => {
-    return checkAgainstOnePromo(promoBody, promoDb)
+    return checkAgainstOnePromo(promoBody, promoDb, currentMeteo)
   })
   return isOnePromoApplicable
 }
 
-function checkAgainstOnePromo (promoBody, promoDb) {
+function checkAgainstOnePromo (promoBody, promoDb, currentMeteo) {
   const allRestrictionsMet = Object.keys(promoDb.restrictions).every(restrictionKey => {
-    return checkRestriction(promoBody, restrictionKey, promoDb.restrictions[restrictionKey])
+    return checkRestriction(promoBody, restrictionKey, promoDb.restrictions[restrictionKey], currentMeteo)
   })
   return allRestrictionsMet
 }
 
-function checkRestriction (promoBody, restrictionKey, restriction) {
+function checkRestriction (promoBody, restrictionKey, restriction, currentMeteo) {
   switch (restrictionKey) {
 
     case '@age':
@@ -31,8 +43,11 @@ function checkRestriction (promoBody, restrictionKey, restriction) {
     case '@date':
       return checkDateRestriction(restriction)
 
+    case '@meteo':
+      return checkMeteoRestriction(currentMeteo, restriction)
+
     default:
-      console.warn(`/!\\ Unknown restrictionKey: ${restrictionKey}`)
+      log.warn(`/!\\ Unknown restrictionKey: ${restrictionKey}`)
       // return false
       return true
   }
@@ -64,8 +79,28 @@ function checkDateRestriction (dateRestriction) {
   } else if (beforeDate) {
     return today.getTime() <= beforeDate
   }
-  console.warn(`/!\\ Neither 'after' nor 'before' restriction?...`)
+  log.warn(`/!\\ Neither 'after' nor 'before' restriction?...`)
   return true
+}
+
+/**
+  @meteo: {
+    is: 'clear',
+    temp: {
+      gt: '15', // Celsius here.
+    }
+  }
+ */
+function checkMeteoRestriction (currentMeteo, meteoRestriction) {
+  if (!currentMeteo) {
+    log.warn(`/!\\ Can't check meteo...`)
+    return true
+  }
+  let restrictionOk = true
+  if (meteoRestriction.is) {
+    restrictionOk = restrictionOk && currentMeteo.main === meteoRestriction.is
+  }
+  return restrictionOk
 }
 
 module.exports = {

@@ -22,7 +22,7 @@ function init () {
       }],
       '@date': {
         after: '2017-05-02',
-        before: '2018-05-02',
+        before: '2018-10-02',
       },
       '@meteo': {
         is: 'clear',

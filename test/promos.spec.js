@@ -8,7 +8,7 @@ const {
   checkRestriction,
   checkAgainstOnePromo,
   checkAgainstAllPromo,
-} = require('../src/utils')
+} = require('../src/promos')
 
 describe('checkAgeRestriction()', () => {
 
@@ -149,7 +149,7 @@ describe('checkAgainstOnePromo()', () => {
 describe('checkAgainstAllPromo()', () => {
 
   describe('When having two promos in DB with one matching the request', () => {
-    it('Should answer true', () => {
+    it('Should answer true', async () => {
       const promoBody = {
         arguments: {
           age: 40,
@@ -168,7 +168,7 @@ describe('checkAgainstAllPromo()', () => {
           }
         }
       }]
-      const result = checkAgainstAllPromo(promoBody, dbContent)
+      const result = await checkAgainstAllPromo(promoBody, dbContent)
       assert.isTrue(result)
     })
   })

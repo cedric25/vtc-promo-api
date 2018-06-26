@@ -2,7 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const log = require('./logger')
 const db = require('./db')
-const { checkAgainstAllPromo } = require('./utils')
+const { checkAgainstAllPromo } = require('./promos')
 
 const app = express()
 
@@ -23,11 +23,11 @@ app.post('/promocode', express.json(), (req, res) => {
   })
 })
 
-app.post('/booking-promo', express.json(), (req, res) => {
+app.post('/booking-promo', express.json(), async (req, res) => {
   log.debug('Handling request for endpoint: POST /booking-promo')
   // TODO Middleware with Joi?
   const dbContent = db.getDb()
-  const result = checkAgainstAllPromo(req.body, dbContent)
+  const result = await checkAgainstAllPromo(req.body, dbContent)
   res.json({
     result,
   })
