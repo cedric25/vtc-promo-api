@@ -37,6 +37,8 @@ function checkAgainstOnePromo (promoBody, promoDb, currentMeteo) {
 function checkRestriction (promoBody, restrictionKey, restriction, currentMeteo) {
   switch (restrictionKey) {
 
+    // TODO For consistency, always have 'restriction' parameter first
+
     case '@age':
       return checkAgeRestriction(promoBody.arguments.age, restriction)
 
@@ -45,6 +47,9 @@ function checkRestriction (promoBody, restrictionKey, restriction, currentMeteo)
 
     case '@meteo':
       return checkMeteoRestriction(currentMeteo, restriction)
+
+    case '@or':
+      return checkOrRestriction(restriction, promoBody, currentMeteo)
 
     default:
       log.warn(`/!\\ Unknown restrictionKey: ${restrictionKey}`)
@@ -83,7 +88,7 @@ function checkDateRestriction (dateRestriction) {
   return true
 }
 
-/**
+/*
   @meteo: {
     is: 'clear',
     temp: {
@@ -104,6 +109,29 @@ function checkMeteoRestriction (currentMeteo, meteoRestriction) {
   return restrictionOk
 }
 
+/*
+  @or: [
+    {
+      @age: {
+        eq: 40
+      }
+    },
+    {
+      @age: {
+        lt: 30,
+        gt: 15
+      },
+    }
+  ]
+ */
+function checkOrRestriction (orRestriction, promoBody, currentMeteo) {
+  return orRestriction.some(restriction => {
+    const restrictionKey = Object.keys(restriction)[0]
+    const restrictionContent = restriction[restrictionKey]
+    return checkRestriction(promoBody, restrictionKey, restrictionContent, currentMeteo)
+  })
+}
+
 module.exports = {
   checkAgainstAllPromo,
 
@@ -112,4 +140,5 @@ module.exports = {
   checkRestriction,
   checkAgeRestriction,
   checkDateRestriction,
+  checkOrRestriction,
 }
