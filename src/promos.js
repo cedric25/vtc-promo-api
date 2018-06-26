@@ -29,6 +29,9 @@ async function checkAgainstAllPromo (promoBody, dbContent) {
     }
     return isPromoApplicable
   })
+
+  // TODO If 'applicablePromo' null, return reason...
+
   return applicablePromo
 }
 

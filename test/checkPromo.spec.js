@@ -6,6 +6,8 @@ const request = require('supertest')
 const app = require('../src/app')
 const db = require('../src/db')
 
+// TODO Mock weather API call with sinon fake http server or extract call to new function and mock this function...
+
 describe('POST /booking-promo route', () => {
 
   beforeEach(() => {

@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 
 app.post('/promocode', express.json(), (req, res) => {
   log.debug('Handling request for endpoint: POST /promocode', req.body)
-  // TODO Middleware with Joi?
+  // TODO Middleware with Joi
   db.addPromocode(req.body)
   res.json({
     success: true,
@@ -25,7 +25,7 @@ app.post('/promocode', express.json(), (req, res) => {
 
 app.post('/booking-promo', express.json(), async (req, res) => {
   log.debug('Handling request for endpoint: POST /booking-promo')
-  // TODO Middleware with Joi?
+  // TODO Middleware with Joi
   const dbContent = db.getDb()
   const applicablePromo = await checkAgainstAllPromo(req.body, dbContent)
   if (applicablePromo) {
