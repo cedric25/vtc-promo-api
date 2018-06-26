@@ -1,7 +1,7 @@
 const rp = require('request-promise')
 const log = require('../logger')
 
-const API_KEY = 'd0562f476913da692a065c608d0539f6'
+const API_KEY = process.env.WEATHER_API_KEY || 'd0562f476913da692a065c608d0539f6'
 
 function buildWeatherUrl (endpoint) {
   return `http://api.openweathermap.org/data/2.5${endpoint}&units=metric&APPID=${API_KEY}`
