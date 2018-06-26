@@ -11,7 +11,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 app.get('/', (req, res) => {
-  res.send('Hello, World!')
+  res.send('Welcome to the VTC Promo API')
 })
 
 app.post('/promocode', express.json(), (req, res) => {
@@ -28,9 +28,25 @@ app.post('/booking-promo', express.json(), async (req, res) => {
   // TODO Middleware with Joi?
   const dbContent = db.getDb()
   const result = await checkAgainstAllPromo(req.body, dbContent)
-  res.json({
-    result,
-  })
+  if (result) {
+    const acceptedAnswer = {
+      promocode_name: req.body.promocode_name,
+      status: 'accepted',
+      avantage: { percent: 20 },
+    }
+    log.info('Answer:', acceptedAnswer)
+    res.json(acceptedAnswer)
+  } else {
+    const deniedAnswer = {
+      promocode_name: req.body.promocode_name,
+      status: 'denied',
+      reasons: {
+        meteo: 'isNotClear'
+      }
+    }
+    log.info('Answer:', deniedAnswer)
+    res.json(deniedAnswer)
+  }
 })
 
 module.exports = app
