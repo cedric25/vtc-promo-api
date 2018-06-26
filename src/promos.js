@@ -21,10 +21,15 @@ async function checkAgainstAllPromo (promoBody, dbContent) {
     currentMeteo = await getWeatherInTown(requestTown)
   }
 
-  const isOnePromoApplicable = dbContent.some(promoDb => {
-    return checkAgainstOnePromo(promoBody, promoDb, currentMeteo)
+  let applicablePromo = null
+  dbContent.some(promoDb => {
+    const isPromoApplicable = checkAgainstOnePromo(promoBody, promoDb, currentMeteo)
+    if (isPromoApplicable) {
+      applicablePromo = promoDb
+    }
+    return isPromoApplicable
   })
-  return isOnePromoApplicable
+  return applicablePromo
 }
 
 function checkAgainstOnePromo (promoBody, promoDb, currentMeteo) {

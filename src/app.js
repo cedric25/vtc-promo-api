@@ -27,12 +27,12 @@ app.post('/booking-promo', express.json(), async (req, res) => {
   log.debug('Handling request for endpoint: POST /booking-promo')
   // TODO Middleware with Joi?
   const dbContent = db.getDb()
-  const result = await checkAgainstAllPromo(req.body, dbContent)
-  if (result) {
+  const applicablePromo = await checkAgainstAllPromo(req.body, dbContent)
+  if (applicablePromo) {
     const acceptedAnswer = {
       promocode_name: req.body.promocode_name,
       status: 'accepted',
-      avantage: { percent: 20 },
+      avantage: applicablePromo.avantage,
     }
     log.info('Answer:', acceptedAnswer)
     res.json(acceptedAnswer)
