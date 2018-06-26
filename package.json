@@ -24,6 +24,7 @@
     "start:debug": "LOG_LEVEL=debug npm run start:dev",
     "start:prod": "NODE_ENV=production node server",
     "test": "NODE_ENV=test FORCE_COLOR=true mocha | npx bunyan --time local --output short",
+    "test:coverage": "NODE_ENV=test FORCE_COLOR=true istanbul cover --print details _mocha | npx bunyan --time local --output short",
     "lint": "eslint . --ext .js"
   },
   "dependencies": {
@@ -40,6 +41,7 @@
     "eslint-plugin-node": "^6.0.0",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
+    "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
     "supertest": "^3.0.0"
   }

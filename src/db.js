@@ -41,7 +41,9 @@ function resetDb () {
 }
 
 function addPromocode (newPromocode) {
-  const newPromocodeWithId = { ...newPromocode, id: uuid() }
+  // istanbul not happy with that, see later
+  // const newPromocodeWithId = { ...newPromocode, id: uuid() }
+  const newPromocodeWithId = Object.assign({}, newPromocode, { id: uuid() })
   console.log('newPromocodeWithId', newPromocodeWithId)
   promocodes.push(newPromocodeWithId)
 }
