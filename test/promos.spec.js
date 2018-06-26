@@ -155,21 +155,28 @@ describe('checkAgainstAllPromo()', () => {
           age: 40,
         }
       }
-      const dbContent = [{
+
+      const firstRestriction = {
         restrictions: {
           '@age': {
             eq: 39
           }
         }
-      }, {
+      }
+      const secondRestriction = {
         restrictions: {
           '@age': {
             eq: 40
           }
         }
-      }]
+      }
+
+      const dbContent = [
+        firstRestriction,
+        secondRestriction,
+      ]
       const result = await checkAgainstAllPromo(promoBody, dbContent)
-      assert.isTrue(result)
+      assert.deepEqual(result, secondRestriction)
     })
   })
 
