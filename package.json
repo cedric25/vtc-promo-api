@@ -25,7 +25,7 @@
     "start:prod": "NODE_ENV=production node server",
     "test": "NODE_ENV=test FORCE_COLOR=true mocha | npx bunyan --time local --output short",
     "test:coverage": "NODE_ENV=test FORCE_COLOR=true istanbul cover --print details _mocha | npx bunyan --time local --output short",
-    "lint": "eslint . --ext .js"
+    "lint": "eslint ./src ./test --ext .js"
   },
   "dependencies": {
     "bunyan": "^1.8.12",
