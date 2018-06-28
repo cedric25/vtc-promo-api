@@ -33,28 +33,30 @@ npm t // yarn test
 At the moment, there is only an **in-memory database** which includes one entry:
 ```json
 {
-  _id: <uuid()>,
-  name: 'WeatherCode',
-  avantage: { percent: 20 },
-  restrictions: {
-    '@or': [{
-      '@age': {
-        eq: 40
+  "_id": "123xxx",
+  "name": "WeatherCode",
+  "avantage": {
+    "percent": 20
+  },
+  "restrictions": {
+    "@or": [{
+      "@age": {
+        "eq": 40
       }
     }, {
-      '@age': {
-        lt: 30,
-        gt: 15
+      "@age": {
+        "lt": 30,
+        "gt": 15
       },
     }],
-    '@date': {
-      after: '2017-05-02',
-      before: '2018-10-02',
+    "@date": {
+      "after": "2017-05-02",
+      "before": "2018-10-02",
     },
-    '@meteo': {
-      is: 'clear',
-      temp: {
-        gt: '15', // Celsius here.
+    "@meteo": {
+      "is": "clear",
+      "temp": {
+        "gt": "15", // Celsius here.
       }
     }
   }
