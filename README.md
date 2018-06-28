@@ -95,6 +95,11 @@ should answer with:
 }
 ```
 
+## Zeit / now integration
+
+Each pull request will trigger a Zeit deployment, clicking on 'Details' gives you a URL that looks like:
+https://vtc-promo-api-aournsxnik.now.sh/
+
 ## TODO
 
 There is multiple 'TODO' in the code...
