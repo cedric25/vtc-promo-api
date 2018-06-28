@@ -29,3 +29,5 @@ jobs:
 
       - store_artifacts:
           path: coverage
+
+      - run: npm audit
