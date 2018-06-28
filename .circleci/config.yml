@@ -30,4 +30,6 @@ jobs:
       - store_artifacts:
           path: coverage
 
+      - run: npm outdated
+
       - run: npm audit
