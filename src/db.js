@@ -48,9 +48,9 @@ function reset () {
 }
 
 function addPromocode (newPromocode) {
-  // istanbul not happy with this spread syntax, see later
-  // const newPromocodeWithId = { ...newPromocode, id: uuid() }
-  const newPromocodeWithId = Object.assign({}, newPromocode, { id: uuid() })
+  const newPromocodeWithId = { ...newPromocode, id: uuid() }
+  // OR:
+  // const newPromocodeWithId = Object.assign({}, newPromocode, { id: uuid() })
   promocodes.push(newPromocodeWithId)
 }
 
