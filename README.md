@@ -56,7 +56,7 @@ At the moment, there is only an **in-memory database** which includes one entry:
     "@meteo": {
       "is": "clear",
       "temp": {
-        "gt": "15", // Celsius here.
+        "gt": "15",
       }
     }
   }
