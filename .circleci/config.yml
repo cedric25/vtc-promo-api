@@ -29,4 +29,3 @@ jobs:
 
       - store_artifacts:
           path: coverage
-          prefix: coverage
