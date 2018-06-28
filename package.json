@@ -23,8 +23,8 @@
     "start:dev": "node server | npx bunyan --time local --output short",
     "start:debug": "LOG_LEVEL=debug npm run start:dev",
     "start:prod": "NODE_ENV=production node server",
-    "test": "NODE_ENV=test FORCE_COLOR=true mocha | npx bunyan --time local --output short",
-    "test:coverage": "NODE_ENV=test FORCE_COLOR=true nyc --reporter=html --reporter=text mocha | npx bunyan --time local --output short",
+    "test": "NODE_ENV=test FORCE_COLOR=true mocha --recursive | npx bunyan --time local --output short",
+    "test:coverage": "NODE_ENV=test FORCE_COLOR=true nyc --reporter=html --reporter=text mocha --recursive | npx bunyan --time local --output short",
     "lint": "eslint ./src ./test --ext .js"
   },
   "dependencies": {

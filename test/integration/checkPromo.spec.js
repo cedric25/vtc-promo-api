@@ -1,10 +1,10 @@
 // Run with:
-// npx mocha test/checkPromo.spec.js
+// npx mocha test/integration/checkPromo.spec.js
 
 const { assert } = require('chai')
 const request = require('supertest')
-const app = require('../src/app')
-const db = require('../src/db')
+const app = require('../../src/app')
+const db = require('../../src/db')
 
 // TODO Mock weather API call with sinon fake http server or extract call to new function and mock this function...
 
